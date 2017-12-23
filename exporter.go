@@ -171,8 +171,8 @@ func main() {
 		metricsPath       = flag.String("telemetry.path", "/metrics", "URL path for surfacing collected metrics.")
 		enabledCollectors = flag.String("collectors.enabled", filterAvailableCollectors(defaultCollectors), "Comma-separated list of collectors to use. Use '[defaults]' as a placeholder for all the collectors enabled by default")
 		printCollectors   = flag.Bool("collectors.print", false, "If true, print available collectors and exit.")
-		pushGateway       = flag.String("web.push-gateway", "localhost:9091", "Address on which to push acceptor for ephemeral and batch jobs.")
-		jobName           = flag.String("web.job-name", "pushGateway", "Jobs name.")
+		pushGateway       = flag.String("push.addr", "localhost:9091", "Address on which to push acceptor for ephemeral and batch jobs.")
+		jobName           = flag.String("push.job", "pushGateway", "Jobs name.")
 	)
 	flag.Usage = usage
 	flag.Parse()
