@@ -171,6 +171,8 @@ func main() {
 		metricsPath       = flag.String("telemetry.path", "/metrics", "URL path for surfacing collected metrics.")
 		enabledCollectors = flag.String("collectors.enabled", filterAvailableCollectors(defaultCollectors), "Comma-separated list of collectors to use. Use '[defaults]' as a placeholder for all the collectors enabled by default")
 		printCollectors   = flag.Bool("collectors.print", false, "If true, print available collectors and exit.")
+		pushGateway       = flag.String("web.push-gateway", "localhost:9091", "Address on which to push acceptor for ephemeral and batch jobs.")
+		jobName           = flag.String("web.job-name", "pushGateway", "Jobs name.")
 	)
 	flag.Usage = usage
 	flag.Parse()
@@ -224,6 +226,7 @@ func main() {
 	log.Infoln("Starting WMI exporter", version.Info())
 	log.Infoln("Build context", version.BuildContext())
 
+	go collector.PushMetrics(*listenAddress, *metricsPath, *pushGateway, *jobName)
 	go func() {
 		log.Infoln("Starting server on", *listenAddress)
 		log.Fatalf("cannot start WMI exporter: %s", http.ListenAndServe(*listenAddress, nil))
