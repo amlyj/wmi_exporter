@@ -226,7 +226,7 @@ func main() {
 	log.Infoln("Starting WMI exporter", version.Info())
 	log.Infoln("Build context", version.BuildContext())
 
-	go collector.PushMetrics(*listenAddress, *metricsPath, *pushGateway, *jobName)
+	collector.PushMetrics(*listenAddress, *metricsPath, *pushGateway, *jobName)
 	go func() {
 		log.Infoln("Starting server on", *listenAddress)
 		log.Fatalf("cannot start WMI exporter: %s", http.ListenAndServe(*listenAddress, nil))
